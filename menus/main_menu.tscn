@@ -1,0 +1,53 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://menus/new_game.gd" type="Script" id=1]
+[ext_resource path="res://menus/load_game.gd" type="Script" id=2]
+
+[node name="MainMenu" type="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NewGame" type="Button" parent="."]
+margin_left = 419.002
+margin_top = 244.051
+margin_right = 551.002
+margin_bottom = 276.051
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+scene_path = "res://test_scenes/testie.tscn"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="NewGame"]
+margin_left = 28.9966
+margin_top = 8.73871
+margin_right = 148.997
+margin_bottom = 48.7387
+text = "New Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="LoadGame" type="Button" parent="."]
+margin_left = 421.385
+margin_top = 300.455
+margin_right = 553.385
+margin_bottom = 332.455
+script = ExtResource( 2 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+save_name = "save1"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="LoadGame"]
+margin_left = 28.2021
+margin_top = 8.34152
+margin_right = 148.202
+margin_bottom = 48.3415
+text = "Load Game"
+__meta__ = {
+"_edit_use_anchors_": false
+}

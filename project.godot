@@ -1,0 +1,39 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "Poller",
+"language": "GDScript",
+"path": "res://menus/poller.gd"
+}, {
+"base": "Reference",
+"class": "SerialTree",
+"language": "GDScript",
+"path": "res://scripts/serial_tree.gd"
+} ]
+_global_script_class_icons={
+"Poller": "",
+"SerialTree": ""
+}
+
+[application]
+
+config/name="Spaceweed"
+run/main_scene="res://menus/main_menu.tscn"
+config/icon="res://icon.png"
+
+[autoload]
+
+Saves="*res://autoloads/saves.gd"
+
+[rendering]
+
+environment/default_environment="res://default_env.tres"
