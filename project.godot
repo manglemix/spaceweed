@@ -18,10 +18,34 @@ _global_script_classes=[ {
 "class": "SerialTree",
 "language": "GDScript",
 "path": "res://scripts/serial_tree.gd"
+}, {
+"base": "Node",
+"class": "State",
+"language": "GDScript",
+"path": "res://state_machine/state.gd"
+}, {
+"base": "Node",
+"class": "StateMachine",
+"language": "GDScript",
+"path": "res://state_machine/state_machine.gd"
+}, {
+"base": "UtilityState",
+"class": "UtilityOptimizer",
+"language": "GDScript",
+"path": "res://state_machine/UtilityAI/utility_optimizer.gd"
+}, {
+"base": "State",
+"class": "UtilityState",
+"language": "GDScript",
+"path": "res://state_machine/UtilityAI/utility_state.gd"
 } ]
 _global_script_class_icons={
 "Poller": "",
-"SerialTree": ""
+"SerialTree": "",
+"State": "",
+"StateMachine": "",
+"UtilityOptimizer": "",
+"UtilityState": ""
 }
 
 [application]
