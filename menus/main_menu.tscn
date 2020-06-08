@@ -19,7 +19,7 @@ script = ExtResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
-scene_path = "res://test_scenes/testie.tscn"
+scene_path = "res://test_scenes/Gameplay.tscn"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="NewGame"]
 margin_left = 28.9966
