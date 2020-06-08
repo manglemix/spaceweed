@@ -3,6 +3,7 @@
 [sub_resource type="ProceduralSky" id=1]
 sky_energy = 0.0
 ground_energy = 0.0
+sun_longitude = 180.0
 sun_angle_min = 5.0
 sun_angle_max = 12.81
 sun_curve = 0.141422
