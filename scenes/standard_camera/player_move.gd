@@ -8,19 +8,11 @@ export var slow_speed: float
 
 
 func _process(delta):
-	var direction: Vector3
-	
-	if Input.is_action_pressed("move_up"):
-		direction.y += 1
-	
-	if Input.is_action_pressed("move_down"):
-		direction.y -= 1
-	
-	if Input.is_action_pressed("move_right"):
-		direction.x += 1
-	
-	if Input.is_action_pressed("move_left"):
-		direction.x -= 1
+	var direction := Vector3(
+			Input.get_action_strength("move_right") - Input.get_action_strength("move_left"),
+			Input.get_action_strength("move_up") - Input.get_action_strength("move_down"),
+			0
+		)
 	
 	if not is_zero_approx(direction.length_squared()):
 		direction = direction.normalized()
