@@ -23,7 +23,6 @@ func _process(delta):
 	var ang_vel = (cam_rot_diff * 2.0) * cam_rot_conj; 
 	ang_vel = Vector3(ang_vel.x, ang_vel.y, ang_vel.z) # Convert Quat to Vector3
 	
-	print(camera_controller.linear_velocity * delta * blur_factor)
 	mat.set_shader_param("linear_velocity", camera_controller.linear_velocity * delta * blur_factor)
 	mat.set_shader_param("angular_velocity", ang_vel * blur_factor)
 		
