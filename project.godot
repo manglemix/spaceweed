@@ -29,6 +29,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://state_machine/state_machine.gd"
 }, {
+"base": "VisibilityNotifier",
+"class": "ToggleVisibility3D",
+"language": "GDScript",
+"path": "res://scripts/toggle_visibility_3D.gd"
+}, {
 "base": "UtilityState",
 "class": "UtilityOptimizer",
 "language": "GDScript",
@@ -38,14 +43,21 @@ _global_script_classes=[ {
 "class": "UtilityState",
 "language": "GDScript",
 "path": "res://state_machine/UtilityAI/utility_state.gd"
+}, {
+"base": "Reference",
+"class": "toggle_visibility_2D",
+"language": "GDScript",
+"path": "res://scripts/toggle_visibility_2D.gd"
 } ]
 _global_script_class_icons={
 "Poller": "",
 "SerialTree": "",
 "State": "",
 "StateMachine": "",
+"ToggleVisibility3D": "",
 "UtilityOptimizer": "",
-"UtilityState": ""
+"UtilityState": "",
+"toggle_visibility_2D": ""
 }
 
 [application]
