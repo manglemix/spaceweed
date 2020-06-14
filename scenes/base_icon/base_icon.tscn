@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://3D_control.gd" type="Script" id=1]
+
+[node name="Icon" type="Control"]
+margin_right = 40.0
+margin_bottom = 40.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TextureRect" type="TextureRect" parent="."]
+margin_left = -45.622
+margin_top = -46.393
+margin_right = 47.378
+margin_bottom = 44.607
+__meta__ = {
+"_edit_use_anchors_": false
+}

@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=4 format=2]
 
-[ext_resource path="res://assets/Atlas.glb" type="PackedScene" id=1]
+[ext_resource path="res://scenes/atlas/Atlas.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/standard_camera/StandardCamera.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/drones/Carrier.tscn" type="PackedScene" id=3]
 
 [node name="Spatial" type="Spatial"]
 
@@ -10,4 +11,5 @@
 [node name="Camera" parent="." instance=ExtResource( 2 )]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 100 )
 
-[editable path="Camera"]
+[node name="Carrier" parent="." instance=ExtResource( 3 )]
+transform = Transform( 1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 39.2233, 0, 0 )

@@ -2,60 +2,40 @@ class_name StateMachine
 extends Node
 
 
-signal transitioned
+# the max number of nodepaths that can be in max_history
+export var max_history := 3
+# Easy way to add a few variables without extending the script
+export var properties: Dictionary
 
-export var _initial_state: NodePath
-export var max_last_states := 1
-
-var current_state: Node
-var last_states: Array
+# can't use State type hint, frequently causes cyclic dependency errors
+var current: Node setget change
+var history := []
 
 
 func _ready():
-	transition_exact(_initial_state)
+	# Set the initial current to the first child node
+	current = get_child(0)
+	current.set_processing(true)
+	current.enter()
 
 
-func transition(state: Node, log_last_state := true) -> int:
-	var err: int = state._can_activate()
-	if err != OK:
-		return err
+func change(state: Node, msg := {}, add_to_history := true):
+	if add_to_history and max_history > 0:
+		history.append(get_path_to(current))
+		if history.size() > max_history:
+			history.remove(0)
 	
-	err = state._can_deactivate()
-	if err != OK:
-		return err
+	current.set_processing(false)
+	current.exit()
 	
-	if is_instance_valid(current_state):
-		current_state._deactivate()
-		
-		if log_last_state:
-			last_states.append(current_state)
-			if last_states.size() > max_last_states:
-				last_states.erase(0)
-	
-	state._activate()
-	current_state = state
-	
-	return OK
+	current = state
+	current.set_processing(true)
+	current.enter(msg)
 
 
-func transition_to(name: String, log_last_state := true) -> int:
-	var state := find_node(name)
-	if state == null:
-		return ERR_DOES_NOT_EXIST
-	
-	return transition(state, log_last_state)
+func change_to(path: NodePath, msg := {}, add_to_history := true):
+	change(get_node(path), msg, add_to_history)
 
 
-func transition_exact(path: NodePath, log_last_state := true) -> int:
-	var state := get_node(path)
-	if state == null:
-		return ERR_DOES_NOT_EXIST
-	
-	return transition(state, log_last_state)
-
-
-func revert_state() -> int:
-	if not is_instance_valid(last_states.back()):
-		return ERR_DOES_NOT_EXIST
-	
-	return transition(last_states.pop_back(), false)
+func revert_state(msg := {}):
+	change_to(history.pop_back(), msg, false)
