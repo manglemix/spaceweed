@@ -2,13 +2,14 @@ extends Camera
 
 
 export var controller_path := NodePath("../CameraController")
+export var movement_waypoint: PackedScene
 
+var dont_save := ["controller", "movement_waypoint", "_map_plane", "selected", "first_click", "second_click"]
 var selected: Array
 var selecting := false setget set_selecting		# when monitoring on the Area turns off, it emits body_exited for all overlaping node, however we want to keep those nodes in the selected array
-var map_plane := Plane(Vector3.BACK, 0)
 var first_click: Vector3
 
-var dont_save := ["controller", "map_plane", "selected", "first_click", "second_click"]
+var _map_plane := Plane(Vector3.BACK, 0)
 
 onready var controller: StateMachine = get_node(controller_path)
 
@@ -29,7 +30,7 @@ func mouse_raycast() -> Dictionary:
 
 
 func map_raycast() -> Vector3:
-	return map_plane.intersects_ray(global_transform.origin, project_ray_normal(get_viewport().get_mouse_position()))
+	return _map_plane.intersects_ray(global_transform.origin, project_ray_normal(get_viewport().get_mouse_position()))
 
 
 func move_to(target: Transform) -> void:
@@ -62,6 +63,16 @@ func highlight_all(value: bool) -> void:
 		highlight_node(node, value)
 
 
+func move_selected_drones() -> void:
+	for node in selected:
+		var move: State = node.get_node_or_null("DroneController/MoveTo")
+		if move != null:
+			var waypoint: Spatial = movement_waypoint.instance()
+			get_tree().current_scene.add_child(waypoint)
+			waypoint.global_transform.origin = map_raycast()
+			move.move_to_node(waypoint, true)
+
+
 func _input(event):
 	if event.is_action_pressed("select"):
 		highlight_all(false)
@@ -75,3 +86,6 @@ func _input(event):
 			var result := mouse_raycast()
 			if not result.empty():
 				selected.append(result["collider"])
+	
+	elif event.is_action_released("command"):
+		move_selected_drones()

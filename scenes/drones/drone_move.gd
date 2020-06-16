@@ -10,12 +10,13 @@ var dont_save := ["target_node"]
 var speed: float
 var target: Vector3
 var target_node: Spatial
+var free_when_done: bool
 
 onready var drone: KinematicPlus = get_parent().get_parent()
 
 
 func _ready():
-	move_to_node(get_node("../../../Atlas"))
+	set_physics_process(false)
 
 
 func move_to(position: Vector3) -> void:
@@ -24,8 +25,13 @@ func move_to(position: Vector3) -> void:
 	set_physics_process(true)
 
 
-func move_to_node(node: Spatial) -> void:
+func move_to_node(node: Spatial, free_when_done := false) -> void:
+	if target_node != null and self.free_when_done:
+		target_node.queue_free()
+	
 	target_node = node
+	# avoid name space collision
+	self.free_when_done = free_when_done
 	set_physics_process(true)
 
 
@@ -39,6 +45,8 @@ func _physics_process(delta):
 	if distance < max_distance:
 		speed = 0
 		set_physics_process(false)
+		if free_when_done:
+			target_node.queue_free()
 		target_node = null
 	
 	else:
