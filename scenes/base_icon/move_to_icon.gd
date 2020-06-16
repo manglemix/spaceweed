@@ -15,6 +15,7 @@ func _ready():
 
 
 func move_to() -> void:
+	get_viewport().get_camera().selecting = false
 	var tmp_transform := target.global_transform
 	tmp_transform.origin.z = camera.get_parent().global_transform.origin.z
 	camera.move_to(tmp_transform)

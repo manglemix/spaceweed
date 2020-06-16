@@ -4,13 +4,19 @@ extends Camera
 export var controller_path := NodePath("../CameraController")
 
 var selected: Array
-var selecting := false		# when monitoring on the Area turns off, it emits body_exited for all overlaping node, however we want to keep those nodes in the selected array
+var selecting := false setget set_selecting		# when monitoring on the Area turns off, it emits body_exited for all overlaping node, however we want to keep those nodes in the selected array
 var map_plane := Plane(Vector3.BACK, 0)
 var first_click: Vector3
 
 var dont_save := ["controller", "map_plane", "selected", "first_click", "second_click"]
 
 onready var controller: StateMachine = get_node(controller_path)
+
+
+func set_selecting(value: bool):
+	selecting = value
+	$DrawBox.active = value
+	$Selector.active = value
 
 
 func _ready():
@@ -61,11 +67,11 @@ func _input(event):
 		highlight_all(false)
 		selected.clear()
 		first_click = map_raycast()
-		selecting = true
-		$DrawBox.active = true
-		$Selector.active = true
+		set_selecting(true)
 	
 	elif event.is_action_released("select"):
-		selecting = false
-		$DrawBox.active = false
-		$Selector.active = false
+		set_selecting(false)
+		if map_raycast().is_equal_approx(first_click):
+			var result := mouse_raycast()
+			if not result.empty():
+				selected.append(result["collider"])

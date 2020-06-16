@@ -8,6 +8,9 @@ func set_active(value: bool):
 	active = value
 	monitoring = active
 	set_physics_process(value)
+	
+	if not value:
+		transform = Transform.IDENTITY
 
 
 func _ready():
