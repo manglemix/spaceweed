@@ -15,7 +15,6 @@ var history := []
 func _ready():
 	# Set the initial current to the first child node
 	current = get_child(0)
-	current.set_processing(true)
 	current.enter()
 
 
@@ -25,11 +24,9 @@ func change(state: Node, msg := {}, add_to_history := true):
 		if history.size() > max_history:
 			history.remove(0)
 	
-	current.set_processing(false)
 	current.exit()
 	
 	current = state
-	current.set_processing(true)
 	current.enter(msg)
 
 
