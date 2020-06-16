@@ -20,7 +20,12 @@ onready var player: KinematicPlus = get_parent().get_parent()
 
 
 func enter(msg := {}) -> void:
+	set_processing(true)
 	target_z = player.global_transform.origin.z
+
+
+func exit(msg := {}) -> void:
+	set_processing(false)
 
 
 func _process(delta):
